@@ -1,0 +1,36 @@
+Raw rows: 5000
+Excluded rows: 15
+Clean rows: 4985
+
+duplicate transaction_id | flagged=5 | excluded=0 | action=keep | same ID but other fields differ, so these are different sales
+exact duplicate copy | flagged=0 | excluded=0 | action=exclude | identical row repeated, only the first copy is kept
+invalid transaction_id | flagged=0 | excluded=0 | action=exclude | ID is missing, non-positive or not a whole number
+invalid day | flagged=0 | excluded=0 | action=exclude | day is outside 1-30
+unknown outlet | flagged=2 | excluded=2 | action=exclude | outlet code is not 1, 2 or 3
+unknown product | flagged=0 | excluded=0 | action=exclude | product code is not 1-8
+unknown payment | flagged=0 | excluded=0 | action=exclude | payment code is not 1-4
+category mismatch | flagged=3 | excluded=3 | action=exclude | category does not match product, correct one is unknown
+quantity not positive | flagged=4 | excluded=4 | action=exclude | zero or negative quantity is not a completed sale
+quantity not whole | flagged=0 | excluded=0 | action=exclude | units sold must be a whole number
+price not positive | flagged=2 | excluded=2 | action=exclude | price must be greater than zero
+negative unit cost | flagged=2 | excluded=2 | action=exclude | cost cannot be negative
+discount outside 0-1 | flagged=2 | excluded=2 | action=exclude | discount rate is impossible
+negative stock | flagged=0 | excluded=0 | action=exclude | stock cannot be negative
+infinite value | flagged=0 | excluded=0 | action=exclude | infinite number in the row
+invalid rating | flagged=3 | excluded=0 | action=make_nan | rating is outside 1-5, set to NaN and the sale is kept
+
+Excluded file: last column reason_code is the position (starting at 1) of the first rule below.
+1 = exact duplicate copy
+2 = invalid transaction_id
+3 = invalid day
+4 = unknown outlet
+5 = unknown product
+6 = unknown payment
+7 = category mismatch
+8 = quantity not positive
+9 = quantity not whole
+10 = price not positive
+11 = negative unit cost
+12 = discount outside 0-1
+13 = negative stock
+14 = infinite value
